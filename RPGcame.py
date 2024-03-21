@@ -1,6 +1,5 @@
 import pygame
-from Player import Player
-from Entity import Entity
+from Entities import Entity
 pygame.init()
 
 screen_width = 800

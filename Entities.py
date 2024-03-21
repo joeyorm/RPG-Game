@@ -1,7 +1,6 @@
 import pygame
 class Entity:
-    def __init__(self, name, health=100, dmg=15, lvl=1, x=10, y=10 ):
-        
+    def __init__(self, name, health=100, dmg=15, lvl=10): 
         self._name = name
         self.health = health
         self.dmg = dmg
