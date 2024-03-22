@@ -1,15 +1,32 @@
-import pygame
-from Entities import Entity
-pygame.init()
+import pygame, sys
+from Entities.Entities import Entity
 
-screen_width = 800
-screen_height = 600
+
+#setup
+pygame.init()
+clock = pygame.time.Clock()
+
+#screen
+screen_width = 400
+screen_height = 400
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("My RPG")
 
-running = True
 
-while running:
-    pygame.display.flip()
+#sprites and groups
+moving_sprites = pygame.sprite.Group()
+player = Entity(100,100)
+moving_sprites.add(player)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
     
-pygame.quit()
+
+    #draw
+    screen.fill((0,0,0))
+    moving_sprites.draw(screen)
+    pygame.display.flip()
+    clock.tick(60)
