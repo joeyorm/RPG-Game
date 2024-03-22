@@ -1,58 +1,38 @@
+from entity_properties import *
 import pygame
-class Entity:
-    def __init__(self, name, health=100, dmg=15, lvl=10): 
-        self._name = name
-        self.health = health
-        self.dmg = dmg
-        self.lvl = lvl
-        self.dead = False
-        
-        
-    @property
-    def name(self):
-        return self._name
-    @name.setter
-    def name(self, value):
-        self._name = value
-        
-    @property
-    def health(self):
-        return self.health
-    @health.setter
-    def health(self, value):
-        if value < 0:
-            self.health = 0
-        else:
-            self.health = value
-    
-    @property
-    def dmg(self):
-        return self.dmg
-    @dmg.setter
-    def dmg(self, value):
-        self.dmg = value
-        
-    @property
-    def lvl(self):
-        return self.lvl
-    @lvl.setter
-    def lvl(self, value):
-        self.lvl = value
-    
-    @property
-    def dead(self):
-        return self.dead
-    @dead.setter
-    def dead(self, value):
-        self.dead = value
 
-    
+class Entity:
+    def __init__(self, name): 
+        #Core Attributes
+        self.pos_xy = (0,0)
+        self.sprite_sheet = None
+        self.collision_box = (10,10)
+        
+        #Movement Attributes
+        self.velocity_x = 0
+        self.facing_direction = None #right left 
+        
+        #Gameplay Attributes
+        self.health = 100
+        self.attack_power = 1
+        self.defense = 0
+        self.state = None #idle, attacking, moving, dead
+        self._name = name
+        self.lvl = 0
+        self.exp = 0
+        self.dead = False 
+        self.speed = 1
+        self.inventory = []
+        
+        
+        
     def take_damage(self):
-        self.health -= self.dmg
+        self.health -= self.attack_power
         if self.health <= 0:
             self.dead = True
+            self.state = dead
             print(f'{self.name} has been defeated!')
             
     def attack(self, enemy):
-        enemy.take_damage(self.dmg)
+        enemy.take_damage(self.attack_power)
         print(f'{self.name} has attacked!, {enemy.name} has {enemy.health} left.')
